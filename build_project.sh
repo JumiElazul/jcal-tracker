@@ -33,7 +33,7 @@ esac
 
 echo "Building in ${BUILD_MODE} mode..."
 
-BUILD_COMMAND="cmake -S . -B ${BIN_DIR} --log-level=VERBOSE -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=${BUILD_MODE}"
+BUILD_COMMAND="cmake -S . -B ${BIN_DIR} --log-level=VERBOSE -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=${BUILD_MODE} -DCMAKE_TOOLCHAIN_FILE=${VCPKG_DIR}/scripts/buildsystems/vcpkg.cmake"
 
 echo "Running build command: ${BUILD_COMMAND}"
 ${BUILD_COMMAND}
