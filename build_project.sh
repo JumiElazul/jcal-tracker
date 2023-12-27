@@ -1,8 +1,8 @@
 #!/bin/bash
 
-echo "Running build script..."
-
 BIN_DIR=bin
+
+echo "Running build script..."
 
 if [ -z "${VCPKG_DIR}" ]; then
     echo "VCPKG_DIR is not set, please download vcpkg and set VCPKG_DIR to the directory where vcpkg is located."
@@ -46,11 +46,7 @@ fi
 echo "Setting up symbolic link for compile_commands.json..."
 ln -s ${BIN_DIR}/compile_commands.json compile_commands.json
 
-echo ""
-echo "------------------------"
-echo "!! Build succeeded !!"
-echo "------------------------"
-echo ""
+echo "!! Cmake Build succeeded !!"
 echo "Switching to ${BIN_DIR} and running make..."
 
 cd ${BIN_DIR}
@@ -61,4 +57,5 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+echo "!! Make succeeded !!"
 exit 0

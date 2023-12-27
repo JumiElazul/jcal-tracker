@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.2)
 
-project(jcal-tracker)
+project(jcal_tracker)
 
 include(cmake/CPM.cmake)
 CPMAddPackage(
@@ -18,5 +18,5 @@ else()
     set(CMAKE_CXX_FLAGS_RELEASE -O3 -DNDEBUG)
 endif()
 
-add_subdirectory(jcal-core)
-add_subdirectory(jcal-client)
+add_subdirectory(jcal_core)
+add_subdirectory(jcal_client)

@@ -1,4 +1,4 @@
 #!/bin/bash
 
-echo "Running project jcal-client"
-bin/jcal-client/jcal-client
+echo "Running project jcal_client"
+bin/jcal_client/jcal_client
