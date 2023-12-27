@@ -2,6 +2,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
 set(SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/core/app_timer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/core/engine_core.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/window/window_handler.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/logger/logger.cpp
@@ -11,6 +12,7 @@ add_library(jcal_core SHARED ${SOURCES})
 
 target_compile_definitions(jcal_core PRIVATE
     JUMI_EXPORT_API
+    GLFW_INCLUDE_NONE
 )
 
 find_package(glfw3 CONFIG REQUIRED)
