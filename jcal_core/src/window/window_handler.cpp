@@ -1,29 +1,29 @@
 #include "jcal_core/window_handler.h"
-#include <iostream>
+#include "jcal_core/logger.h"
 #include <GLFW/glfw3.h>
+#include <stdexcept>
 
 namespace jumi
 {
 
-    WindowHandler::WindowHandler() { }
+    WindowHandler::WindowHandler()
+    {
+        JUMI_TRACE("WindowHandler constructed");
+    }
 
     WindowHandler::~WindowHandler()
     {
-        std::cout << "WindowHandler::~WindowHandler()\n";
+        JUMI_TRACE("WindowHandler destructed");
+        JUMI_INFO("glfwTerminate() called");
+
         glfwTerminate();
     }
 
     void WindowHandler::init()
     {
-        std::cout << "WindowHandler::init()\n";
-
         if (!glfwInit())
         {
             throw std::runtime_error("Failed to initialize GLFW");
-        }
-        else
-        {
-            std::cout << "Glfw initialized\n";
         }
     }
 
