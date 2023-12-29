@@ -27,8 +27,9 @@ case $mode in
         BUILD_MODE=Release
         ;;
     *)
-        echo "Invalid build mode selected, ceasing build"
-        exit 1
+        echo "Invalid build mode selected, defaulting to Debug"
+        BUILD_MODE=Debug
+        ;;
 esac
 
 echo "Building in ${BUILD_MODE} mode..."

@@ -1,4 +1,5 @@
 #include "jcal_core/engine_core.h"
+#include "jcal_core/input_handler.h"
 #include "jcal_core/window_handler.h"
 #include "jcal_core/logger.h"
 #include "core/app_timer.h"
@@ -54,8 +55,7 @@ namespace jumi
             throw std::runtime_error("Failed to initialize GLFW");
         }
 
-        _app_timer = std::make_unique<timers::AppTimer>();
-        _window_handler = std::make_unique<WindowHandler>();
+        create_modules();
         _window_handler->init(config.glfw_version_major, config.glfw_version_minor);
 
         _initialized = true;
@@ -70,6 +70,14 @@ namespace jumi
         return true;
     }
 
+    void EngineCore::create_modules()
+    {
+        JUMI_TRACE("EngineCore create_modules()");
+        _app_timer = std::make_unique<timers::AppTimer>();
+        _window_handler = std::make_unique<WindowHandler>();
+        _input_handler = std::make_unique<InputHandler>();
+    }
+
     const WindowHandler& EngineCore::window() const
     {
         JUMI_TRACE("EngineCore window()");
@@ -77,7 +85,6 @@ namespace jumi
     }
 
     double EngineCore::time() const { return _app_timer->time_since_init(); }
-
 }
 
 

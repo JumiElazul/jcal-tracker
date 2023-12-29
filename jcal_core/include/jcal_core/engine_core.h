@@ -11,6 +11,7 @@ namespace jumi
     }
 
     class WindowHandler;
+    class InputHandler;
 
     struct JUMI_API EngineConfig
     {
@@ -41,9 +42,11 @@ namespace jumi
     private:
         bool _initialized = false;
         std::unique_ptr<WindowHandler> _window_handler;
+        std::unique_ptr<InputHandler> _input_handler;
         std::unique_ptr<timers::AppTimer> _app_timer;
 
         bool init_glfw() const;
+        void create_modules();
     };
 }
 

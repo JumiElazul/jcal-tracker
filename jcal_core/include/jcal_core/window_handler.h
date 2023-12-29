@@ -10,16 +10,22 @@ namespace jumi
 
     class JUMI_API WindowHandler
     {
+    friend class EngineCore;
+
     public:
         WindowHandler();
         ~WindowHandler();
+        WindowHandler(const WindowHandler&) = delete;
+        WindowHandler& operator=(const WindowHandler&) = delete;
+        WindowHandler(WindowHandler&&) = delete;
+        WindowHandler& operator=(WindowHandler&&) = delete;
 
-        void init(const int glfw_version_major, const int glfw_version_minor);
         void show_window(bool show = true) const;
 
     private:
         std::unique_ptr<WindowHandlerImpl> _impl;
 
+        void init(const int glfw_version_major, const int glfw_version_minor);
         void setup_window_hints(const int glfw_version_major, const int glfw_version_minor) const;
         void create_window();
     };

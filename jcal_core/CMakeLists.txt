@@ -4,6 +4,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/core/app_timer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/core/engine_core.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/input/input_handler.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/window/window_handler.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/logger/logger.cpp
 )

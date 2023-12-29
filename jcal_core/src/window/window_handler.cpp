@@ -22,6 +22,11 @@ namespace jumi
             JUMI_INFO("glfwTerminate() called");
         }
 
+        WindowHandlerImpl(const WindowHandlerImpl&) = delete;
+        WindowHandlerImpl& operator=(const WindowHandlerImpl&) = delete;
+        WindowHandlerImpl(WindowHandlerImpl&&) = delete;
+        WindowHandlerImpl& operator=(WindowHandlerImpl&&) = delete;
+
         void init(const int glfw_version_major, const int glfw_version_minor)
         {
             setup_window_hints(glfw_version_major, glfw_version_minor);
