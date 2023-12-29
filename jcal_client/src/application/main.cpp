@@ -12,7 +12,7 @@ int main()
     window.show_window();
 
     double time = core.time();
-    while (time < 4.0)
+    while (time < 3.0)
     {
         time = core.time();
     }

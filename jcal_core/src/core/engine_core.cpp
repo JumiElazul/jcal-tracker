@@ -25,6 +25,7 @@ namespace jumi
     EngineCore::~EngineCore()
     {
         JUMI_TRACE("EngineCore destructed");
+        glfwTerminate();
     }
 
     EngineCore& EngineCore::instance()
