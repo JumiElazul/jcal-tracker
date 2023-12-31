@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(jcal_tracker)
+project(jcal-tracker)
 
 include(cmake/CPM.cmake)
 CPMAddPackage(
