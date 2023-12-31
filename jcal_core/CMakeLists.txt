@@ -4,6 +4,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/core/app_timer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/core/engine_core.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/input/glfw_callback_context.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/input/input_handler.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/window/window_handler.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/logger/logger.cpp
@@ -18,7 +19,9 @@ target_compile_definitions(jcal_core PRIVATE
 
 find_package(glfw3 CONFIG REQUIRED)
 find_package(spdlog CONFIG REQUIRED)
-target_link_libraries(jcal_core PRIVATE glfw spdlog::spdlog)
+find_package(glad CONFIG REQUIRED)
+find_package(imgui CONFIG REQUIRED)
+target_link_libraries(jcal_core PRIVATE glfw spdlog::spdlog glad::glad imgui::imgui)
 
 if (WIN32)
     target_compile_definitions(jcal_core PUBLIC JUMI_WINDOWS)

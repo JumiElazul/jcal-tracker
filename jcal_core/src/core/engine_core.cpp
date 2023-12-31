@@ -74,6 +74,7 @@ namespace jumi
     {
         JUMI_TRACE("EngineCore create_modules()");
         _app_timer = std::make_unique<timers::AppTimer>();
+        _glfw_callback_context = std::make_unique<GLFWCallbackContext>();
         _window_handler = std::make_unique<WindowHandler>();
         _input_handler = std::make_unique<InputHandler>();
     }
@@ -82,6 +83,12 @@ namespace jumi
     {
         JUMI_TRACE("EngineCore window()");
         return *_window_handler;
+    }
+
+    const InputHandler& EngineCore::input() const
+    {
+        JUMI_TRACE("EngineCore input()");
+        return *_input_handler;
     }
 
     double EngineCore::time() const { return _app_timer->time_since_init(); }

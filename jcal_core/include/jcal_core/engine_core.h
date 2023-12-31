@@ -10,6 +10,7 @@ namespace jumi
         class AppTimer;
     }
 
+    class GLFWCallbackContext;
     class WindowHandler;
     class InputHandler;
 
@@ -35,12 +36,14 @@ namespace jumi
         static EngineCore& instance();
         void init(const EngineConfig& config = {});
         const WindowHandler& window() const;
+        const InputHandler& input() const;
         double time() const;
 
         inline bool initialized() const { return _initialized; }
 
     private:
         bool _initialized = false;
+        std::unique_ptr<GLFWCallbackContext> _glfw_callback_context;
         std::unique_ptr<WindowHandler> _window_handler;
         std::unique_ptr<InputHandler> _input_handler;
         std::unique_ptr<timers::AppTimer> _app_timer;

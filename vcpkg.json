@@ -3,6 +3,14 @@
   "version-string": "0.0.1",
   "dependencies": [
       "glfw3",
-      "spdlog"
+      "spdlog",
+      {
+          "name": "glad",
+          "features": ["gl-api-latest"]
+      },
+      {
+          "name": "imgui",
+          "features": ["docking-experimental", "glfw-binding", "opengl3-binding"]
+      }
   ]
 }
