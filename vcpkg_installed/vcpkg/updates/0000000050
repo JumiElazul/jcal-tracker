@@ -1,6 +1,6 @@
 Package: glad
 Feature: gl-api-latest
-Architecture: x64-windows-static
+Architecture: x64-linux
 Multi-Arch: same
 Description: Imports extensions from latest OpenGL API specification version.
 Status: install ok installed

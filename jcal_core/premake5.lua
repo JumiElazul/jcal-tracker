@@ -4,7 +4,7 @@ project "jcal_core"
    targetdir "bin/%{cfg.buildcfg}"
 
    files 
-   { 
+   {
        "src/core/app_timer.cpp", 
        "src/core/app_timer.h", 
        "src/core/engine_core.cpp",
@@ -25,13 +25,13 @@ project "jcal_core"
    {
        "src",
        "include",
-       "../vcpkg_installed/x64-windows-static/include"
+       "../vcpkg_installed/%{triplet}/include"
    }
 
    libdirs
    {
-       "../vcpkg_installed/x64-windows-static/lib",
-       "../vcpkg_installed/x64-windows-static/debug/lib"
+       "../vcpkg_installed/%{triplet}/lib",
+       "../vcpkg_installed/%{triplet}/debug/lib"
    }
 
    filter "system:windows"

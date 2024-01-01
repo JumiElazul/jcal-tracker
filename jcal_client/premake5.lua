@@ -19,19 +19,18 @@ project "jcal_client"
    filter "system:windows"
       defines { "JUMI_WINDOWS" }
 
-   filter "configurations:Debug"
+      filter "configurations:Debug"
       symbols "On"
       prebuildcommands
       {
-          "{ECHO} Copying jcal-core.dll from %{wks.location}jcal_core/bin/Debug/jcal_core.dll to {cfg.targetdir}",
-          "{COPY} %{wks.location}jcal_core/bin/Debug/jcal_core.dll %{cfg.targetdir}"
+          "{ECHO} Copying jcal-core.dll from %{wks.location}jcal_core/bin/%{cfg.buildcfg}/jcal_core.dll to %{cfg.targetdir}",
+          "{COPY} %{wks.location}jcal_core/bin/%{cfg.buildcfg}/jcal_core.dll %{cfg.targetdir}"
       }
 
-   filter "configurations:Release"
+      filter "configurations:Release"
       optimize "On"
       prebuildcommands
       {
-          "{ECHO} Copying jcal-core.dll from %{wks.location}jcal_core/bin/Release/jcal_core.dll to {cfg.targetdir}",
-          "{COPY} %{wks.location}jcal_core/bin/Release/jcal_core.dll %{cfg.targetdir}"
+          "{ECHO} Copying jcal-core.dll from %{wks.location}jcal_core/bin/%{cfg.buildcfg}/jcal_core.dll to %{cfg.targetdir}",
+          "{COPY} %{wks.location}jcal_core/bin/%{cfg.buildcfg}/jcal_core.dll %{cfg.targetdir}"
       }
-
