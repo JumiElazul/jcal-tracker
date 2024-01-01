@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{89AF369E-F58E-B539-FEA6-40106A051C9B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\jcal_core">
+      <UniqueIdentifier>{FAA2D49C-66B9-D232-AF30-5E541B86A3BA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\core">
+      <UniqueIdentifier>{C55F2ECF-B12C-89DA-DA45-7782C671BE68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\input">
+      <UniqueIdentifier>{0C5966B5-78C3-1A2C-C101-CCD12DABF880}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\logger">
+      <UniqueIdentifier>{7CE03D69-6898-7FB6-D19F-5812BD761AA7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\window">
+      <UniqueIdentifier>{94D77D82-808F-BFCF-E996-982BD56D5AC0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\jcal_core\core.h">
+      <Filter>include\jcal_core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jcal_core\engine_core.h">
+      <Filter>include\jcal_core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jcal_core\input_handler.h">
+      <Filter>include\jcal_core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jcal_core\logger.h">
+      <Filter>include\jcal_core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\jcal_core\window_handler.h">
+      <Filter>include\jcal_core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\app_timer.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\glfw_callback_context.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\core\app_timer.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\engine_core.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\glfw_callback_context.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\input\input_handler.cpp">
+      <Filter>src\input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\logger\logger.cpp">
+      <Filter>src\logger</Filter>
+    </ClCompile>
+    <ClCompile Include="src\window\window_handler.cpp">
+      <Filter>src\window</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

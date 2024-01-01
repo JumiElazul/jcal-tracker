@@ -27,7 +27,7 @@ namespace jumi
     private:
         void register_callbacks()
         {
-            glfwSetErrorCallback(error_callback);
+            //glfwSetErrorCallback(error_callback);
         }
 
 

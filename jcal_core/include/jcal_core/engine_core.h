@@ -32,7 +32,6 @@ namespace jumi
         EngineCore(EngineCore&&) = delete;
         EngineCore& operator=(EngineCore&&) = delete;
 
-        static std::unique_ptr<WindowHandler> create_window_handler();
         static EngineCore& instance();
         void init(const EngineConfig& config = {});
         const WindowHandler& window() const;

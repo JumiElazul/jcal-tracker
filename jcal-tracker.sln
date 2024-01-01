@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcal_client", "jcal_client\jcal_client.vcxproj", "{3D7D7802-A932-F1F7-3227-EBCE9EDBE7FB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jcal_core", "jcal_core\jcal_core.vcxproj", "{C719C6B8-3384-7A2F-7CC2-2BD5E86B5884}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3D7D7802-A932-F1F7-3227-EBCE9EDBE7FB}.Debug|x64.ActiveCfg = Debug|x64
+		{3D7D7802-A932-F1F7-3227-EBCE9EDBE7FB}.Debug|x64.Build.0 = Debug|x64
+		{3D7D7802-A932-F1F7-3227-EBCE9EDBE7FB}.Release|x64.ActiveCfg = Release|x64
+		{3D7D7802-A932-F1F7-3227-EBCE9EDBE7FB}.Release|x64.Build.0 = Release|x64
+		{C719C6B8-3384-7A2F-7CC2-2BD5E86B5884}.Debug|x64.ActiveCfg = Debug|x64
+		{C719C6B8-3384-7A2F-7CC2-2BD5E86B5884}.Debug|x64.Build.0 = Debug|x64
+		{C719C6B8-3384-7A2F-7CC2-2BD5E86B5884}.Release|x64.ActiveCfg = Release|x64
+		{C719C6B8-3384-7A2F-7CC2-2BD5E86B5884}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

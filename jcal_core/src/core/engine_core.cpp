@@ -3,6 +3,7 @@
 #include "jcal_core/window_handler.h"
 #include "jcal_core/logger.h"
 #include "core/app_timer.h"
+#include "core/glfw_callback_context.h"
 #include <memory>
 #include <GLFW/glfw3.h>
 
