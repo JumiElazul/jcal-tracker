@@ -12,6 +12,7 @@ CTestTestfile.cmake
 _deps
 
 vcpkg_installed/
+*.sln
 
 
 ## Ignore Visual Studio temporary files, build results, and
