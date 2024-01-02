@@ -58,6 +58,7 @@ namespace jumi
 
         create_modules();
         _window_handler->init(config.glfw_version_major, config.glfw_version_minor);
+        _glfw_callback_context->init(_window_handler->window());
 
         _initialized = true;
     }
@@ -75,8 +76,8 @@ namespace jumi
     {
         JUMI_TRACE("EngineCore create_modules()");
         _app_timer = std::make_unique<timers::AppTimer>();
-        _glfw_callback_context = std::make_unique<GLFWCallbackContext>();
         _window_handler = std::make_unique<WindowHandler>();
+        _glfw_callback_context = std::make_unique<GLFWCallbackContext>();
         _input_handler = std::make_unique<InputHandler>();
     }
 

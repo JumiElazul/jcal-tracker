@@ -2,6 +2,8 @@
 
 #include <memory>
 
+struct GLFWwindow;
+
 namespace jumi
 {
     class GLFWCallbackContextImpl;
@@ -16,10 +18,10 @@ namespace jumi
         GLFWCallbackContext(GLFWCallbackContext&&) = delete;
         GLFWCallbackContext& operator=(GLFWCallbackContext&&) = delete;
 
+        void init(GLFWwindow* window);
+
     private:
         std::unique_ptr<GLFWCallbackContextImpl> _impl;
-
-        static void error_callback(int error, const char* description);
     };
 
 }

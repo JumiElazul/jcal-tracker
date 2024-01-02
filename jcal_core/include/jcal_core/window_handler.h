@@ -21,6 +21,7 @@ namespace jumi
         WindowHandler& operator=(WindowHandler&&) = delete;
 
         void show_window(bool show = true) const;
+        GLFWwindow* window() const;
 
     private:
         std::unique_ptr<WindowHandlerImpl> _impl;

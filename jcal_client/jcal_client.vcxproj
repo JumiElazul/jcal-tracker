@@ -72,8 +72,10 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>echo Copying jcal-core.dll from $(SolutionDir)jcal_core/bin/Debug/jcal_core.dll to {cfg.targetdir}
-IF EXIST $(SolutionDir)jcal_core\bin\Debug\jcal_core.dll\ (xcopy /Q /E /Y /I $(SolutionDir)jcal_core\bin\Debug\jcal_core.dll bin\Debug &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)jcal_core\bin\Debug\jcal_core.dll bin\Debug &gt; nul)</Command>
+      <Command>echo Copying jcal-core.dll from $(SolutionDir)jcal_core/bin/Debug/jcal_core.dll to bin/Debug
+IF EXIST $(SolutionDir)jcal_core\bin\Debug\jcal_core.dll\ (xcopy /Q /E /Y /I $(SolutionDir)jcal_core\bin\Debug\jcal_core.dll bin\Debug &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)jcal_core\bin\Debug\jcal_core.dll bin\Debug &gt; nul)
+echo Copying jcal-core.pdb from $(SolutionDir)jcal_core/bin/Debug/jcal_core.pdb to bin/Debug
+IF EXIST $(SolutionDir)jcal_core\bin\Debug\jcal_core.pdb\ (xcopy /Q /E /Y /I $(SolutionDir)jcal_core\bin\Debug\jcal_core.pdb bin\Debug &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)jcal_core\bin\Debug\jcal_core.pdb bin\Debug &gt; nul)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -98,7 +100,7 @@ IF EXIST $(SolutionDir)jcal_core\bin\Debug\jcal_core.dll\ (xcopy /Q /E /Y /I $(S
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PreBuildEvent>
-      <Command>echo Copying jcal-core.dll from $(SolutionDir)jcal_core/bin/Release/jcal_core.dll to {cfg.targetdir}
+      <Command>echo Copying jcal-core.dll from $(SolutionDir)jcal_core/bin/Release/jcal_core.dll to bin/Release
 IF EXIST $(SolutionDir)jcal_core\bin\Release\jcal_core.dll\ (xcopy /Q /E /Y /I $(SolutionDir)jcal_core\bin\Release\jcal_core.dll bin\Release &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)jcal_core\bin\Release\jcal_core.dll bin\Release &gt; nul)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>

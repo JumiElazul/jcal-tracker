@@ -1,6 +1,0 @@
-Package: vcpkg-cmake
-Version: 2023-05-04
-Architecture: x64-linux
-Multi-Arch: same
-Abi: 26a32c0d4d92f9daed184239e7a109cf6621d6989a1a58928f63c3addfb557c3
-Status: install ok half-installed

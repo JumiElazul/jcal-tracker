@@ -11,57 +11,22 @@ namespace jumi
     {
     friend class WindowHandler;
     public:
-        WindowHandlerImpl()
-        {
-            JUMI_TRACE("WindowHandler constructed");
-        }
-
-        ~WindowHandlerImpl()
-        {
-            JUMI_TRACE("WindowHandler destructed");
-            JUMI_INFO("glfwTerminate() called");
-        }
-
+        WindowHandlerImpl();
+        ~WindowHandlerImpl();
         WindowHandlerImpl(const WindowHandlerImpl&) = delete;
         WindowHandlerImpl& operator=(const WindowHandlerImpl&) = delete;
         WindowHandlerImpl(WindowHandlerImpl&&) = delete;
         WindowHandlerImpl& operator=(WindowHandlerImpl&&) = delete;
 
-        void init(const int glfw_version_major, const int glfw_version_minor)
-        {
-            setup_window_hints(glfw_version_major, glfw_version_minor);
-            create_window();
-            glfwMakeContextCurrent(_window);
-        }
-
-        void show_window(bool show = true) const
-        {
-            show ? JUMI_INFO("Showing window") : JUMI_INFO("Hiding window");
-            show ? glfwShowWindow(_window) : glfwHideWindow(_window);
-        }
+        void init(const int glfw_version_major, const int glfw_version_minor);
+        void show_window(bool show = true) const;
+        GLFWwindow* window() const;
 
     private:
         GLFWwindow* _window = nullptr;
 
-        void setup_window_hints(const int glfw_version_major, const int glfw_version_minor) const
-        {
-            JUMI_INFO("Setting up window hints");
-            glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, glfw_version_major);
-            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, glfw_version_minor);
-            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
-            glfwWindowHint(GLFW_SAMPLES, 2);
-        }
-
-        void create_window()
-        {
-            JUMI_INFO("Creating window");
-            _window = glfwCreateWindow(800, 500, "jcal-tracker", nullptr, nullptr);
-
-            if (!_window)
-            {
-                throw std::runtime_error("Failed to create GLFW window");
-            }
-        }
+        void setup_window_hints(const int glfw_version_major, const int glfw_version_minor) const;
+        void create_window();
     };
 
     WindowHandler::WindowHandler() : _impl(std::make_unique<WindowHandlerImpl>())
@@ -69,28 +34,60 @@ namespace jumi
 
     }
 
+    WindowHandlerImpl::WindowHandlerImpl()
+    {
+        JUMI_TRACE("WindowHandler constructed");
+    }
+
     WindowHandler::~WindowHandler() 
     {
 
     }
 
-    void WindowHandler::init(const int glfw_version_major, const int glfw_version_minor)
+    WindowHandlerImpl::~WindowHandlerImpl()
     {
-        _impl->init(glfw_version_major, glfw_version_minor);
+        JUMI_TRACE("WindowHandler destructed");
+        JUMI_INFO("glfwTerminate() called");
     }
 
-    void WindowHandler::show_window(bool show) const
+    void WindowHandler::init(const int glfw_version_major, const int glfw_version_minor) { _impl->init(glfw_version_major, glfw_version_minor); }
+    void WindowHandlerImpl::init(const int glfw_version_major, const int glfw_version_minor)
     {
-        _impl->show_window(show);
+        setup_window_hints(glfw_version_major, glfw_version_minor);
+        create_window();
+        glfwMakeContextCurrent(_window);
     }
 
-    void WindowHandler::setup_window_hints(const int glfw_version_major, const int glfw_version_minor) const
+    void WindowHandler::show_window(bool show) const { _impl->show_window(show); }
+    void WindowHandlerImpl::show_window(bool show) const
     {
-        _impl->setup_window_hints(glfw_version_major, glfw_version_minor);
+        show ? JUMI_INFO("Showing window") : JUMI_INFO("Hiding window");
+        show ? glfwShowWindow(_window) : glfwHideWindow(_window);
     }
 
-    void WindowHandler::create_window()
+    GLFWwindow* WindowHandler::window() const { return _impl->window(); }
+    GLFWwindow* WindowHandlerImpl::window() const { return _window; }
+
+    void WindowHandler::setup_window_hints(const int glfw_version_major, const int glfw_version_minor) const { _impl->setup_window_hints(glfw_version_major, glfw_version_minor); }
+    void WindowHandlerImpl::setup_window_hints(const int glfw_version_major, const int glfw_version_minor) const
     {
-        _impl->create_window();
+        JUMI_INFO("Setting up window hints");
+        glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, glfw_version_major);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, glfw_version_minor);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
+        glfwWindowHint(GLFW_SAMPLES, 2);
+    }
+
+    void WindowHandler::create_window() { _impl->create_window(); }
+    void WindowHandlerImpl::create_window()
+    {
+        JUMI_INFO("Creating window");
+        _window = glfwCreateWindow(800, 500, "jcal-tracker", nullptr, nullptr);
+
+        if (!_window)
+        {
+            throw std::runtime_error("Failed to create GLFW window");
+        }
     }
 }
