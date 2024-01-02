@@ -11,14 +11,16 @@ project "jcal_core"
        "src/core/glfw_callback_context.cpp",
        "src/core/glfw_callback_context.h",
        "src/input/input_handler.cpp",
+       "src/input/keycodes.cpp",
        "src/logger/logger.cpp",
        "src/window/window_handler.cpp",
 
-        "include/jcal_core/core.h",
-        "include/jcal_core/engine_core.h",
-        "include/jcal_core/input_handler.h",
-        "include/jcal_core/logger.h",
-        "include/jcal_core/window_handler.h",
+       "include/jcal_core/core.h",
+       "include/jcal_core/engine_core.h",
+       "include/jcal_core/input_handler.h",
+       "include/jcal_core/logger.h",
+       "include/jcal_core/window_handler.h",
+       "include/jcal_core/keycodes.h",
    }
 
    includedirs

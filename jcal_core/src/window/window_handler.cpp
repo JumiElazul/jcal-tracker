@@ -20,6 +20,9 @@ namespace jumi
 
         void init(const int glfw_version_major, const int glfw_version_minor);
         void show_window(bool show = true) const;
+        void swap_buffers() const;
+        bool should_close() const;
+        void close_window() const;
         GLFWwindow* window() const;
 
     private:
@@ -63,6 +66,24 @@ namespace jumi
     {
         show ? JUMI_INFO("Showing window") : JUMI_INFO("Hiding window");
         show ? glfwShowWindow(_window) : glfwHideWindow(_window);
+    }
+
+    void WindowHandler::swap_buffers() const { _impl->swap_buffers(); }
+    void WindowHandlerImpl::swap_buffers() const
+    {
+        glfwSwapBuffers(_window);
+    }   
+
+    bool WindowHandler::should_close() const { return _impl->should_close(); }
+    bool WindowHandlerImpl::should_close() const
+    {
+        return glfwWindowShouldClose(_window);
+    }
+
+    void WindowHandler::close_window() const { _impl->close_window(); }
+    void WindowHandlerImpl::close_window() const
+    {
+        glfwSetWindowShouldClose(_window, true);
     }
 
     GLFWwindow* WindowHandler::window() const { return _impl->window(); }

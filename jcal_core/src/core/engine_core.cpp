@@ -1,4 +1,5 @@
 #include "jcal_core/engine_core.h"
+#include "jcal_core/keycodes.h"
 #include "jcal_core/input_handler.h"
 #include "jcal_core/window_handler.h"
 #include "jcal_core/logger.h"
@@ -21,6 +22,7 @@ namespace jumi
     EngineCore::EngineCore()
     {
         Logger::init();
+        KeyCodeConverter::init();
         JUMI_TRACE("EngineCore constructed");
     }
 
@@ -58,7 +60,7 @@ namespace jumi
 
         create_modules();
         _window_handler->init(config.glfw_version_major, config.glfw_version_minor);
-        _glfw_callback_context->init(_window_handler->window());
+        _glfw_callback_context->init();
 
         _initialized = true;
     }
@@ -77,8 +79,8 @@ namespace jumi
         JUMI_TRACE("EngineCore create_modules()");
         _app_timer = std::make_unique<timers::AppTimer>();
         _window_handler = std::make_unique<WindowHandler>();
-        _glfw_callback_context = std::make_unique<GLFWCallbackContext>();
         _input_handler = std::make_unique<InputHandler>();
+        _glfw_callback_context = std::make_unique<GLFWCallbackContext>(*_window_handler, *_input_handler);
     }
 
     const WindowHandler& EngineCore::window() const

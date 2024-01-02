@@ -21,6 +21,9 @@ namespace jumi
         WindowHandler& operator=(WindowHandler&&) = delete;
 
         void show_window(bool show = true) const;
+        void swap_buffers() const;
+        bool should_close() const;
+        void close_window() const;
         GLFWwindow* window() const;
 
     private:

@@ -104,6 +104,7 @@
     <ClInclude Include="include\jcal_core\core.h" />
     <ClInclude Include="include\jcal_core\engine_core.h" />
     <ClInclude Include="include\jcal_core\input_handler.h" />
+    <ClInclude Include="include\jcal_core\keycodes.h" />
     <ClInclude Include="include\jcal_core\logger.h" />
     <ClInclude Include="include\jcal_core\window_handler.h" />
     <ClInclude Include="src\core\app_timer.h" />
@@ -114,6 +115,7 @@
     <ClCompile Include="src\core\engine_core.cpp" />
     <ClCompile Include="src\core\glfw_callback_context.cpp" />
     <ClCompile Include="src\input\input_handler.cpp" />
+    <ClCompile Include="src\input\keycodes.cpp" />
     <ClCompile Include="src\logger\logger.cpp" />
     <ClCompile Include="src\window\window_handler.cpp" />
   </ItemGroup>
