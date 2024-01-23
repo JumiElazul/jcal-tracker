@@ -2,6 +2,7 @@ project "JCalClient"
    kind "ConsoleApp"
    language "C++"
    targetdir "bin/%{cfg.buildcfg}"
+   dependson "JCalCore"
 
    files 
    {

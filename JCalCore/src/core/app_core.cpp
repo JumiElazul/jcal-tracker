@@ -18,6 +18,8 @@ const Vec2 AppCore::s_starting_window_size = { 800, 500 };
 
 AppCore::AppCore()
     : _should_quit(false)
+    , _framebuffer_size(s_starting_window_size)
+    , _clear_color(1.0f, 0.0f, 0.0f)
     , _window_handler(std::unique_ptr<WindowHandler>(new WindowHandler()))
     , _imgui_handler(std::unique_ptr<ImGuiHandler>(new ImGuiHandler()))
 {
