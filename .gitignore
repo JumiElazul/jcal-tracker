@@ -44,7 +44,7 @@
 *.exe
 *.out
 *.app
-!premake.exe
+!premake/premake5.exe
 
 ### CMake ###
 CMakeLists.txt.user
