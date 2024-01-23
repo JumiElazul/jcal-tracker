@@ -6,7 +6,6 @@ int main()
 {
     AppCore& core = AppCore::instance();
     core.show_window(true);
-    core.set_clear_color({ 1.0f, 0.0f, 0.0f });
 
     while (!core.should_quit())
     {

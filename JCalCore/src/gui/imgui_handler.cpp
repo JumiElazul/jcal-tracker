@@ -26,9 +26,15 @@ void ImGuiHandler::draw_window(const Vec2& framebuffer_size) const
     ImGui::SetNextWindowSize(window_size);
     ImGui::SetNextWindowPos(window_pos);
 
-    if (ImGui::Begin("Test Window"))
-    {
+    ImGuiWindowFlags flags = ImGuiWindowFlags_None;
+    flags = ImGuiWindowFlags_NoResize
+          | ImGuiWindowFlags_NoCollapse
+          | ImGuiWindowFlags_NoDecoration;
+    bool open = true;
 
+    if (ImGui::Begin("Test Window", &open, flags))
+    {
+        ImGui::Text("Hello World!");
 
         ImGui::End();
     }
@@ -48,6 +54,7 @@ void ImGuiHandler::init(GLFWwindow* window, const Vec2& window_size)
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
+    io.Fonts->AddFontFromFileTTF("assets/iosevka-custom.ttf", 20.0f);
     ImGui::StyleColorsLight();
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 460");
