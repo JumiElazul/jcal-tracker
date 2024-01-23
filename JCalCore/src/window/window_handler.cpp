@@ -9,13 +9,13 @@ WindowHandler::~WindowHandler()
     }
 }
 
-void WindowHandler::init()
+void WindowHandler::init(const Vec2& window_size)
 {
     glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
     glfwWindowHint(GLFW_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_VERSION_MINOR, 6);
 
-    _main_window = glfwCreateWindow(800, 500, "JCal-Tracker", nullptr, nullptr);
+    _main_window = glfwCreateWindow(window_size.x, window_size.y, "JCal-Tracker", nullptr, nullptr);
     glfwMakeContextCurrent(_main_window);
 }
 
