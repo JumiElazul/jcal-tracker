@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <map>
+#include <vector>
 
 class JsonHandler
 {
@@ -11,7 +12,7 @@ public:
     void write_to_file();
 
 private:
-    std::map<std::string, int> entries;
+    std::vector<std::map<std::string, int>> entries;
 
     JsonHandler() = default;
     JsonHandler(const JsonHandler& other) = delete;
