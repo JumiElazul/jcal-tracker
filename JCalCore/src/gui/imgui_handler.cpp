@@ -1,9 +1,15 @@
 #include "gui/imgui_handler.h"
+#include "json/json_handler.h"
 #include "JCalCore/core/vector.h"
+#include <vector>
+#include <string>
 #include <fmt/format.h>
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
+
+ImGuiHandler::ImGuiHandler(JsonHandler& json_handler)
+    : _json_handler(json_handler) { }
 
 ImGuiHandler::~ImGuiHandler() 
 { 
@@ -34,7 +40,10 @@ void ImGuiHandler::draw_window(const Vec2& framebuffer_size) const
 
     if (ImGui::Begin("Test Window", &open, flags))
     {
-        ImGui::Text("Hello World!");
+        if (ImGui::Button("Write To File"))
+        {
+            _json_handler.write_to_file();
+        }
 
         ImGui::End();
     }

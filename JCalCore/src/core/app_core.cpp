@@ -3,6 +3,7 @@
 #include "JCalCore/core/vector.h"
 #include "window/window_handler.h"
 #include "gui/imgui_handler.h"
+#include "json/json_handler.h"
 #include <string>
 #include <memory>
 #include <fmt/format.h>
@@ -21,7 +22,8 @@ AppCore::AppCore()
     , _framebuffer_size(s_starting_window_size)
     , _clear_color(1.0f, 0.0f, 0.0f)
     , _window_handler(std::unique_ptr<WindowHandler>(new WindowHandler()))
-    , _imgui_handler(std::unique_ptr<ImGuiHandler>(new ImGuiHandler()))
+    , _json_handler(std::unique_ptr<JsonHandler>(new JsonHandler()))
+    , _imgui_handler(std::unique_ptr<ImGuiHandler>(new ImGuiHandler(*_json_handler)))
 {
     bool init_success = true;
     init_success = init_glfw();
@@ -95,6 +97,7 @@ void AppCore::hookup_callbacks() const
     glfwSetWindowUserPointer(window, (void*)this);
     glfwSetKeyCallback(window, key_callback);
     glfwSetFramebufferSizeCallback(window, framebuffer_callback);
+    glfwSetWindowCloseCallback(window, window_close_callback);
 }
 
 void AppCore::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -116,10 +119,22 @@ void AppCore::on_key_callback(int key, int action)
     }
 }
 
+void AppCore::on_window_close_callback(GLFWwindow* window)
+{
+    fmt::print("Window close callback called\n");
+    quit_app();
+}
+
 void AppCore::framebuffer_callback(GLFWwindow* window, int width, int height)
 {
     AppCore* core = static_cast<AppCore*>(glfwGetWindowUserPointer(window));
     core->on_framebuffer_callback(width, height);
+}
+
+void AppCore::window_close_callback(GLFWwindow* window)
+{
+    AppCore* core = static_cast<AppCore*>(glfwGetWindowUserPointer(window));
+    core->on_window_close_callback(window);
 }
 
 void AppCore::on_framebuffer_callback(int width, int height)

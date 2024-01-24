@@ -5,6 +5,7 @@
 
 struct GLFWwindow;
 class WindowHandler;
+class JsonHandler;
 class ImGuiHandler;
 
 class AppCore
@@ -26,6 +27,7 @@ private:
     Vec2 _framebuffer_size;
     Vec3 _clear_color;
     std::unique_ptr<WindowHandler> _window_handler;
+    std::unique_ptr<JsonHandler> _json_handler;
     std::unique_ptr<ImGuiHandler> _imgui_handler;
 
     bool init_glfw();
@@ -33,6 +35,7 @@ private:
     void hookup_callbacks() const;
     void on_key_callback(int key, int action);
     void on_framebuffer_callback(int key, int action);
+    void on_window_close_callback(GLFWwindow* window);
 
     AppCore();
     ~AppCore();
@@ -43,6 +46,7 @@ private:
 
     static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
     static void framebuffer_callback(GLFWwindow* window, int width, int height);
+    static void window_close_callback(GLFWwindow* window);
 
     static const std::string s_appcore_init_fail_msg;
     static const std::string s_glfw_init_fail_msg;

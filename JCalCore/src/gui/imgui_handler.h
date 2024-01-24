@@ -2,6 +2,7 @@
 
 struct GLFWwindow;
 struct Vec2;
+class JsonHandler;
 
 class ImGuiHandler
 {
@@ -14,9 +15,11 @@ public:
     void render() const;
 
 private:
+    JsonHandler& _json_handler;
+
     void init(GLFWwindow* window, const Vec2& window_size);
 
-    ImGuiHandler() = default;
+    ImGuiHandler(JsonHandler& json_handler);
     ImGuiHandler(const ImGuiHandler& other) = delete;
     ImGuiHandler operator=(const ImGuiHandler& other) = delete;
     ImGuiHandler(const ImGuiHandler&& other) = delete;
