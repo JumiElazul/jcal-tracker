@@ -42,7 +42,7 @@ void ImGuiHandler::draw_window(const Vec2& framebuffer_size) const
     {
         if (ImGui::Button("Write To File"))
         {
-            _json_handler.write_to_file();
+            _json_handler.to_json();
         }
 
         ImGui::End();
