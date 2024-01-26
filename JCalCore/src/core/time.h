@@ -14,11 +14,10 @@ namespace jcaltime
             , mday(tm.tm_mday)
             , mon(tm.tm_mon + 1)
             , year(tm.tm_year + 1900)
-            , wday(tm.tm_wday)
+            , wday(tm.tm_wday + 1)
             , yday(tm.tm_yday)
             , isdst(tm.tm_isdst)
         {
-
         }
 
         int sec;   // seconds after the minute - [0, 60] including leap second
@@ -31,45 +30,43 @@ namespace jcaltime
         int yday;  // days since January 1 - [0, 365]
         int isdst; // daylight savings time flag
 
-        inline std::string to_string() const
+        inline std::string get_ymd_string() const
         {
-            bool am = hour < 12;
-            int new_hour = hour % 12;
-            std::string postfix = am ? "AM" : "PM";
+            std::string month{ std::to_string(mon) };
+            std::string day{ std::to_string(mday) };
 
-            std::string new_min = std::to_string(min);
-            std::string new_sec = std::to_string(sec);
+            if (std::stoi(month) < 10) { month = prefix_zero(month); }
+            if (std::stoi(day) < 10) { day = prefix_zero(day); }
 
-            if (min < 10)
-            {
-                char c = new_min[0];
-                new_min += c;
-                new_min[0] = '0';
-            }
-
-            if (sec < 10)
-            {
-                char c = new_sec[0];
-                new_sec += c;
-                new_sec[0] = '0';
-            }
-
-            std::string result = std::to_string(year) + '-'
-                + std::to_string(mon) + '-'
-                + std::to_string(mday) + ' '
-                + std::to_string(new_hour) + ':'
-                + new_min + ':'
-                + new_sec + ' ' + postfix;
-
-            return result;
+            return std::to_string(year) + "-" + month + "-" + day;
         }
-    };
 
-    inline std::ostream& operator<<(std::ostream& os, const time_struct& ts)
-    {
-        os << ts.to_string();
-        return os;
-    }
+        inline std::string get_hms_string() const
+        {
+            std::string hour_{ std::to_string(hour) };
+            std::string minute{ std::to_string(min) };
+            std::string second{ std::to_string(sec) };
+            std::string postfix;
+
+            if (std::stoi(hour_) > 11) { postfix = "PM"; }
+            else { postfix = "AM"; }
+            if (hour == 0) { hour_ = "12"; }
+            else if (hour > 12) { hour_ = std::to_string(hour - 12); }
+
+            if (std::stoi(minute) < 10) { minute = prefix_zero(minute); }
+            if (std::stoi(second) < 10) { second = prefix_zero(second); }
+
+            return hour_ + ":" + minute + ":" + second + " " + postfix;
+        }
+
+        inline std::string get_full_time() const
+        {
+            return get_ymd_string() + " " + get_hms_string();
+        }
+
+    private:
+        std::string prefix_zero(std::string& str) const { return str.insert(0, "0"); }
+    };
 
     inline time_struct get_current_time()
     {

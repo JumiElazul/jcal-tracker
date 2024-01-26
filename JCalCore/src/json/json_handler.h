@@ -2,8 +2,6 @@
 #include <string>
 #include <map>
 
-class json;
-
 using FoodEntry = std::map<std::string, int>;
 using TimeEntries = std::map<std::string, FoodEntry>;
 
@@ -21,7 +19,9 @@ friend class AppCore;
 public:
     ~JsonHandler();
 
-    void to_json();
+    bool file_exists(const std::string& filepath);
+    Diary read_json();
+    void test_func();
 
 private:
     JsonHandler() = default;
