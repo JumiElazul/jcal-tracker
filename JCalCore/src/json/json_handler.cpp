@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <filesystem>
+#include <sstream>
 #include "nlohmann/json.hpp"
 #include "fmt/format.h"
 
@@ -12,22 +13,49 @@ const std::string JsonHandler::s_current_directory = std::filesystem::current_pa
 const std::string JsonHandler::s_user_directory = s_current_directory + "\\user1";
 const std::string JsonHandler::s_json_filepath = s_user_directory + "\\user_data.json";
 
-JsonHandler::~JsonHandler() { }
-
-bool JsonHandler::file_exists(const std::string& filepath)
+void from_json(const json& j, DateEntry& date_entry)
 {
-    return std::filesystem::exists(filepath);
+    j.at("total_calories").get_to(date_entry.total_calories);
+    j.at("entries").get_to(date_entry.entries);
+}
+
+void to_json(json& j, const DateEntry& date_entry)
+{
+    j = json{ date_entry.total_calories, { date_entry.entries } };
+}
+
+bool JsonHandler::file_exists(const std::string& filepath) { return std::filesystem::exists(filepath); }
+
+Diary JsonHandler::read_json(const std::string& filepath)
+{
+    if (!file_exists(filepath))
+    {
+        fmt::print("Directory doesn't exist, can't read_json({})\n", s_user_directory);
+        // TODO: Create a default user directory maybe
+        return {};
+    }
+
+    std::ifstream file(filepath);
+    std::stringstream buffer;
+    buffer << file.rdbuf();
+    std::string file_contents{ buffer.str() };
+
+    json json{ json::parse(file_contents) };
+    Diary diary = json.get<Diary>();
+    return diary;
+}
+
+void JsonHandler::to_json(const std::string& filepath, const Diary& diary)
+{
+
 }
 
 void JsonHandler::test_func()
 {
-    fmt::print("{}\n", file_exists(s_current_directory));
-    fmt::print("{}\n", file_exists(s_user_directory));
-    fmt::print("{}\n", file_exists(s_json_filepath));
-
-    fmt::print("{}\n", jcaltime::get_current_time().get_ymd_string());
-    fmt::print("{}\n", jcaltime::get_current_time().get_hms_string());
     fmt::print("{}\n", jcaltime::get_current_time().get_full_time());
+
+    Diary diary = read_json(s_json_filepath);
+
     //if (!std::filesystem::exists(s_user_directory))
     //{
     //    fmt::print("{} does not exist, creating folder\n", s_user_directory);
@@ -54,3 +82,4 @@ void JsonHandler::test_func()
 
     //std::cout << std::setw(4) << json << '\n';
 }
+

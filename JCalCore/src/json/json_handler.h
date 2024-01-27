@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <map>
+#include <nlohmann/json_fwd.hpp>
 
 using FoodEntry = std::map<std::string, int>;
 using TimeEntries = std::map<std::string, FoodEntry>;
@@ -13,14 +14,18 @@ struct DateEntry
 
 using Diary = std::map<std::string, DateEntry>;
 
+void from_json(const nlohmann::json& json, DateEntry& date_entry);
+void to_json(nlohmann::json& json, const DateEntry& date_entry);
+
 class JsonHandler
 {
 friend class AppCore;
 public:
-    ~JsonHandler();
+    ~JsonHandler() = default;
 
-    bool file_exists(const std::string& filepath);
-    Diary read_json();
+    [[nodiscard]] bool file_exists(const std::string& filepath);
+    [[nodiscard]] Diary read_json(const std::string& filepath);
+    void to_json(const std::string& filepath, const Diary& diary);
     void test_func();
 
 private:
