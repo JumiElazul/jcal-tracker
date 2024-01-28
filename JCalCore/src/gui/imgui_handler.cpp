@@ -40,6 +40,12 @@ void ImGuiHandler::draw_window(const Vec2& framebuffer_size) const
 
     if (ImGui::Begin("Test Window", &open, flags))
     {
+        char buf[128]{};
+        if (ImGui::InputText("Test", buf, sizeof(buf)))
+        {
+
+        }
+
         if (ImGui::Button("Write To File"))
         {
             _json_handler.test_func();
