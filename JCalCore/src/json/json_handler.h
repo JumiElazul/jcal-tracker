@@ -13,7 +13,7 @@ public:
 
     nlohmann::json deserialize_json(const std::string& json_path) const;
     void serialize_json(const std::string& json_path, const nlohmann::json& json) const;
-    void add_meal_entry(nlohmann::json& j, const MealEntry& meal_entry) const;
+    nlohmann::json& add_meal_entry(nlohmann::json& j, const MealEntry& meal_entry) const;
     void test_func();
 
 private:

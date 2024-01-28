@@ -47,7 +47,7 @@ void JsonHandler::serialize_json(const std::string& json_path, const json& j) co
     file.close();
 }
 
-void JsonHandler::add_meal_entry(json& j, const MealEntry& meal_entry) const
+json& JsonHandler::add_meal_entry(json& j, const MealEntry& meal_entry) const
 {
     jcaltime::time_struct time = jcaltime::get_current_time();
     std::string year_month_day_str{ time.get_ymd_string() };
@@ -58,6 +58,7 @@ void JsonHandler::add_meal_entry(json& j, const MealEntry& meal_entry) const
     }
 
     j[year_month_day_str].push_back(meal_entry);
+    return j;
 }
 
 void JsonHandler::test_func()
@@ -66,5 +67,11 @@ void JsonHandler::test_func()
     init_json_if_needed(s_user_directory, s_json_filepath);
 
     json j = deserialize_json(s_json_filepath);
+    jcaltime::time_struct curr_time = jcaltime::get_current_time();
+    std::string hms_str{ curr_time.get_hms_string() };
+
+    MealEntry meal_entry{ hms_str, "Greek yogurt with honey", 500 };
+    add_meal_entry(j, meal_entry);
+    serialize_json(s_json_filepath, j);
 }
 
