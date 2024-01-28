@@ -1,0 +1,21 @@
+{
+    "2024-01-27": [
+        {
+            "calories": 500,
+            "meal_description": "Chicken and rice",
+            "timestamp": "5:03:42 PM"
+        },
+        {
+            "calories": 300,
+            "meal_description": "Salad",
+            "timestamp": "5:04:31 PM"
+        }
+    ],
+    "2024-01-28": [
+        {
+            "calories": 350,
+            "meal_description": "Greek yogurt with honey and granola",
+            "timestamp": "9:04:55 AM"
+        }
+    ]
+}

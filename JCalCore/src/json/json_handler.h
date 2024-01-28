@@ -1,5 +1,7 @@
 #pragma once
+#include "core/structs.h"
 #include <string>
+#include <vector>
 #include <map>
 #include <nlohmann/json_fwd.hpp>
 
@@ -11,13 +13,12 @@ friend class AppCore;
 public:
     ~JsonHandler() = default;
 
-    nlohmann::json deserialize_json(const std::string& json_path) const;
-    void serialize_json(const std::string& json_path, const nlohmann::json& json) const;
-    nlohmann::json& add_meal_entry(nlohmann::json& j, const MealEntry& meal_entry) const;
-    void test_func();
+    std::map<std::string, std::vector<MealEntry>> deserialize_json(const std::string& json_path) const;
+    void serialize_json(const std::string& json_path, const std::map<std::string, std::vector<MealEntry>>& meal_entries) const;
+    const std::string get_default_json_filepath() const;
 
 private:
-    void init_json_if_needed(const std::string& dir_path, const std::string& filepath) const;
+    void init_json_if_needed(const std::string& filepath) const;
 
     JsonHandler() = default;
     JsonHandler(const JsonHandler& other) = delete;

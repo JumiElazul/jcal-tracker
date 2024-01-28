@@ -1,9 +1,10 @@
 #include "json/json_handler.h"
-#include "core/time.h"
 #include "core/structs.h"
 #include <fstream>
 #include <filesystem>
 #include <sstream>
+#include <vector>
+#include <map>
 #include "nlohmann/json.hpp"
 #include "fmt/format.h"
 
@@ -11,17 +12,10 @@ NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(MealEntry, timestamp, meal_description, calor
 using json = nlohmann::json;
 
 const std::string JsonHandler::s_current_directory = std::filesystem::current_path().string();
-const std::string JsonHandler::s_user_directory = s_current_directory + "\\user1";
-const std::string JsonHandler::s_json_filepath = s_user_directory + "\\user_data.json";
+const std::string JsonHandler::s_json_filepath = s_current_directory + "\\user_data.json";
 
-
-void JsonHandler::init_json_if_needed(const std::string& dir_path, const std::string& filepath) const
+void JsonHandler::init_json_if_needed(const std::string& filepath) const
 {
-    if (!std::filesystem::exists(dir_path))
-    {
-        std::filesystem::create_directory(dir_path);
-    }
-
     if (!std::filesystem::exists(filepath))
     {
         std::ofstream file{ filepath };
@@ -31,47 +25,55 @@ void JsonHandler::init_json_if_needed(const std::string& dir_path, const std::st
     }
 }
 
-json JsonHandler::deserialize_json(const std::string& json_path) const
+std::map<std::string, std::vector<MealEntry>> JsonHandler::deserialize_json(const std::string& json_path) const
 {
+    init_json_if_needed(json_path);
     std::ifstream file{ json_path };
-    json j;
+    nlohmann::json j;
     file >> j;
-    file.close();
-    return j;
-}
 
-void JsonHandler::serialize_json(const std::string& json_path, const json& j) const
-{
-    std::ofstream file{ json_path };
-    file << std::setw(4) << j << std::endl;
-    file.close();
-}
+    std::map<std::string, std::vector<MealEntry>> meal_entries;
 
-json& JsonHandler::add_meal_entry(json& j, const MealEntry& meal_entry) const
-{
-    jcaltime::time_struct time = jcaltime::get_current_time();
-    std::string year_month_day_str{ time.get_ymd_string() };
-
-    if (j.find(year_month_day_str) == j.end())
+    for (const auto& [date, entries] : j.items()) 
     {
-        j[year_month_day_str] = json::array();
+        std::vector<MealEntry> day_meal_entries;
+
+        for (const auto& entry : entries) 
+        {
+            MealEntry meal_entry;
+            meal_entry.timestamp = entry.value("timestamp", "");
+            meal_entry.meal_description = entry.value("meal_description", "");
+            meal_entry.calories = entry.value("calories", 0);
+            day_meal_entries.push_back(meal_entry);
+        }
+
+        meal_entries[date] = day_meal_entries;
     }
 
-    j[year_month_day_str].push_back(meal_entry);
-    return j;
+    return meal_entries;
 }
 
-void JsonHandler::test_func()
+void JsonHandler::serialize_json(const std::string& json_path, const std::map<std::string, std::vector<MealEntry>>& meal_entries) const
 {
-    fmt::print("{}\n", jcaltime::get_current_time().get_full_time());
-    init_json_if_needed(s_user_directory, s_json_filepath);
+    std::ofstream file{ json_path };
+    json j;
 
-    json j = deserialize_json(s_json_filepath);
-    jcaltime::time_struct curr_time = jcaltime::get_current_time();
-    std::string hms_str{ curr_time.get_hms_string() };
+    for (const auto& [date, entries] : meal_entries)
+    {
+        json date_array = nlohmann::json::array();
+        for (const auto& entry : entries)
+        {
+            json entry_json;
+            entry_json["timestamp"] = entry.timestamp;
+            entry_json["meal_description"] = entry.meal_description;
+            entry_json["calories"] = entry.calories;
+            date_array.push_back(entry_json);
+        }
+        j[date] = date_array;
+    }
 
-    MealEntry meal_entry{ hms_str, "Greek yogurt with honey", 500 };
-    add_meal_entry(j, meal_entry);
-    serialize_json(s_json_filepath, j);
+    file << std::setw(4) << j << std::endl;
 }
+
+const std::string JsonHandler::get_default_json_filepath() const { return s_json_filepath; }
 

@@ -1,8 +1,10 @@
 #include "gui/imgui_handler.h"
+#include "core/time.h"
 #include "json/json_handler.h"
 #include "JCalCore/core/vector.h"
-#include <vector>
+#include <algorithm>
 #include <string>
+#include <vector>
 #include <fmt/format.h>
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
@@ -10,6 +12,21 @@
 
 ImGuiHandler::ImGuiHandler(JsonHandler& json_handler)
     : _json_handler(json_handler) { }
+
+int ImGuiHandler::filter_characters(ImGuiInputTextCallbackData* data)
+{
+    if (data->EventChar == '\t' || data->EventChar == '\n' || data->EventChar == '\r' || data->EventChar == ' ')
+        return 1;
+
+    static char allowed_characters[] = "0123456789";
+
+    if (std::find(std::begin(allowed_characters), std::end(allowed_characters), data->EventChar) == std::end(allowed_characters))
+    {
+        return 1;
+    }
+
+    return 0;
+}
 
 ImGuiHandler::~ImGuiHandler() 
 { 
@@ -40,15 +57,32 @@ void ImGuiHandler::draw_window(const Vec2& framebuffer_size) const
 
     if (ImGui::Begin("Test Window", &open, flags))
     {
-        char buf[128]{};
-        if (ImGui::InputText("Test", buf, sizeof(buf)))
-        {
+        static char meal_buffer[128];
+        static char calorie_buffer[6];
 
-        }
+        ImGui::InputTextWithHint("##meal_description", "Meal Description", meal_buffer, IM_ARRAYSIZE(meal_buffer));
+        ImGui::InputTextWithHint("##calories", "Calories", calorie_buffer, IM_ARRAYSIZE(calorie_buffer), ImGuiInputTextFlags_CallbackCharFilter, filter_characters);
 
-        if (ImGui::Button("Write To File"))
+        if (ImGui::Button("Add Entry"))
         {
-            _json_handler.test_func();
+            if (meal_buffer[0] != '\0' && calorie_buffer[0] != '\0')
+            {
+                std::map<std::string, std::vector<MealEntry>> meal_data = _json_handler.deserialize_json(_json_handler.get_default_json_filepath());
+
+                MealEntry meal_entry;
+                meal_entry.meal_description = meal_buffer;
+                meal_entry.calories = std::stoi(calorie_buffer);
+                meal_entry.timestamp = jcaltime::get_current_time().get_hms_string();
+
+                jcaltime::time_struct time = jcaltime::get_current_time();
+                std::string date = time.get_ymd_string();
+                meal_data[date].push_back(meal_entry);
+
+                _json_handler.serialize_json(_json_handler.get_default_json_filepath(), meal_data);
+
+                meal_buffer[0] = '\0';
+                calorie_buffer[0] = '\0';
+            }
         }
 
         ImGui::End();

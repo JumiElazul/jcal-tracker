@@ -3,6 +3,7 @@
 struct GLFWwindow;
 struct Vec2;
 class JsonHandler;
+class ImGuiInputTextCallbackData;
 
 class ImGuiHandler
 {
@@ -24,4 +25,6 @@ private:
     ImGuiHandler operator=(const ImGuiHandler& other) = delete;
     ImGuiHandler(const ImGuiHandler&& other) = delete;
     ImGuiHandler operator=(const ImGuiHandler&& other) = delete;
+
+    static int filter_characters(ImGuiInputTextCallbackData* data);
 };
